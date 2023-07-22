@@ -1,32 +1,25 @@
+using API.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+[Route("keys")]
+public class BlablaController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
+    public async Task<ActionResult<KeyValue>> Get()
     {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
+        // Simulate a 10-second delay
+        await Task.Delay(1000);
 
-    private readonly ILogger<WeatherForecastController> _logger;
-
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
-    {
-        _logger = logger;
-    }
-
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
-    {
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        // Create the KeyValue object with the desired values
+        var keyValue = new KeyValue
         {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+            key = "KEY---",
+            value = "I am the king 2!" 
+        };
+
+        // Return the KeyValue object as the ActionResult
+        return keyValue;
     }
 }
