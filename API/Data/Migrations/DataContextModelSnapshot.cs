@@ -28,6 +28,12 @@ namespace API.Data.Migrations
                     b.Property<string>("Introduce")
                         .HasColumnType("TEXT");
 
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("BLOB");
+
                     b.Property<string>("UserName")
                         .HasColumnType("TEXT");
 

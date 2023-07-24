@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
 [ApiController]
-[Route("keys")]
-public class BlablaController : ControllerBase
+[Route("api/[controller]")]
+public class WeatherForecastController : ControllerBase
 {
     public async Task<ActionResult<KeyValue>> Get()
     {

@@ -1,26 +1,28 @@
+using System.Text;
 using API.Data;
+using API.Extensions;
+using API.Interfaces;
+using API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-
-// This code is configuring the dependency injection for the application's services.
-builder.Services.AddDbContext<DataContext>(opt => { 
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DatabaseConnection"));
-});
-
-// Add CORS (Cross-Origin Resource Sharing), 
-// so that the frontend can reach the webapi on the same "localhost"
-builder.Services.AddCors();
-
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddIdentityService(builder.Configuration);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-// Add CORS (Cross-Origin Resource Sharing), 
-// app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+// Add CORS (Cross-Origin Resource Sharing)
+app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers(); // Middleware
 
