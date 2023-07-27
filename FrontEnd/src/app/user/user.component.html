@@ -1,29 +1,73 @@
 <div class="container">
-    <h2> Dating App: Users</h2>
-    <button class="btn btn-primary" (click)="onClickGetUsers()">Get Users</button>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div *ngIf="!showSignUp">
+            <h2>Login</h2>
+            <form (ngSubmit)="onClickSignInSubmit()" #signInForm="ngForm">
+              <div class="form-group mt-3">
+                <label for="email">User Name</label>
+                <input type="email" class="form-control" ngModel name="userName" required>
+              </div>
+              <div class="form-group mt-3">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" ngModel name="password" required minlength="6">
+              </div>
+              <div class="d-grid gap-2">
+                <button class="btn btn-primary mt-3" type="submit" [disabled]="!signInForm.valid">Login</button>
+              </div>
+            </form>
+        </div>
 
-    <div 
-        class="alert alert-warning mt-3" 
-        *ngIf="dataMessage != null" 
-        role="alert"
-        [ngClass]="{'alert-warning': dataMessage.includes('error'), 'alert-success': dataMessage.includes('success')}">
-        {{ dataMessage }}
-    </div>
-    <hr>
-
-    <div *ngFor="let user of users, let i = index">
-        <div routerLinkActive="active" [routerLink]="['/users', user.id]" class="card" style="margin-bottom: 5px;">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h2 class="card-title">{{user.userName}}</h2>
-                        <p class="card-title">{{user.introduce}}</p>
-                    </div>
+        <div *ngIf="showSignUp">
+            <h2>Sign Up</h2>
+            <form (ngSubmit)="onClickSignUpSubmit()" #signUpForm="ngForm">
+              <div class="form-group mt-3">
+                <label>Email*</label>
+                <input type="email" class="form-control" ngModel name="email" required email>
+              </div>
+              <div class="form-group mt-3">
+                <label>Username*</label>
+                <input type="text" class="form-control" ngModel name="userName" required>
+              </div>
+              <div class="form-group mt-3">
+                <label>Introduce</label>
+                <textarea class="form-control" ngModel name="introduce" rows="3"></textarea>
+              </div>
+              <div class="form-group mt-3">
+                <label>Image URL</label>
+                <input type="text" class="form-control" ngModel name="imageurl">
+              </div>
+              <div class="form-group mt-3">
+                <label>Password*</label>
+                <input type="password" class="form-control" ngModel name="password" required minlength="6" #password="ngModel">
+                <div *ngIf="password.touched && !password.valid" class="text-danger">
+                    Password must have minimal 6 characters!
                 </div>
-                <div class="col-md-4 d-flex justify-content-end" >
-                    <img src="{{user.imageUrl}}" alt="{{user.userName}}" class="img-fluid p-1 fixed-image rounded" style="max-height: 200px;">
+              </div>
+              <div class="form-group mt-3">
+                <label>Confirm Password</label>
+                <input type="password" class="form-control" ngModel name="confirmPassword" required minlength="6" #confirmPassword="ngModel">
+                <div *ngIf="confirmPassword.touched && confirmPassword.value !== password.value" class="text-danger">
+                    Password confirmation does not match.
                 </div>
-            </div>
-        </div> 
+              </div>
+              <div class="d-grid gap-2">
+                <button class="btn btn-primary mt-3" type="submit" [disabled]="!signUpForm.valid">Sign Up</button>   
+              </div>  
+            </form>
+        </div>
+      
+        <div 
+            class="alert alert-success alert-dismissible fade show mt-3" 
+            role="alert" 
+            *ngIf="apiMessage != null"
+            [ngClass]="{'alert-warning': apiMessage.includes('error'), 'alert-success': apiMessage.includes('success')}">
+                {{apiMessage}}
+        </div>
+        <hr>
+        <p *ngIf="showSignUp">Already have an account? <a [routerLink]="['/user']" (click)="showSignUp = false">Login</a></p>
+        <p *ngIf="!showSignUp">Don't have an account? <a [routerLink]="['/user']" (click)="showSignUp = true">Sign Up</a></p>
     </div>
 </div>
+  
+  

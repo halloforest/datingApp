@@ -1,7 +1,8 @@
-using System.Text;
 using API.Data;
 using API.Interfaces;
+using API.Services;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace API.Extensions
 {
@@ -17,6 +18,8 @@ namespace API.Extensions
             // Add CORS (Cross-Origin Resource Sharing), 
             // so that the frontend can reach the webapi on the same "localhost"
             services.AddCors();
+
+            // Add TokenService
             services.AddScoped<ITokenService, TokenService>();
 
             return services;

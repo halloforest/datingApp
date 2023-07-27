@@ -1,3 +1,7 @@
 {
-    "terminal.integrated.locale": "en"
+    "terminal.integrated.locale": "en",
+    "workbench.settings.enableNaturalLanguageSearch": false,
+    "workbench.editor.historyBasedLanguageDetection": true,
+    "workbench.editor.languageDetection": true,
+    "workbench.editor.preferHistoryBasedLanguageDetection": true
 }

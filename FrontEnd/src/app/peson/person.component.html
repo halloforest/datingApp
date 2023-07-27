@@ -1,0 +1,29 @@
+<div class="container">
+    <h2> Dating App: Users</h2>
+    <button class="btn btn-primary" (click)="onClickGetUsers()">Get Users</button>
+
+    <div 
+        class="alert alert-warning mt-3" 
+        *ngIf="apiMessage != null" 
+        role="alert"
+        [ngClass]="{'alert-warning': apiMessage.includes('error'), 'alert-success': apiMessage.includes('success')}">
+        {{ apiMessage }}
+    </div>
+    <hr>
+
+    <div *ngFor="let person of people, let i = index">
+        <div routerLinkActive="active" [routerLink]="['/users', person.id]" class="card" style="margin-bottom: 5px;">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h2 class="card-title">{{person.userName}}</h2>
+                        <p class="card-title">{{person.introduce}}</p>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end" >
+                    <img src="{{person.imageUrl}}" alt="{{person.userName}}" class="img-fluid p-1 fixed-image rounded" style="max-height: 200px;">
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

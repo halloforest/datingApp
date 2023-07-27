@@ -1,0 +1,11 @@
+<div class="row" *ngIf="person != null">
+    <div class="col-md-8">
+        <div class="card-body">
+            <h2 class="card-title">{{person.userName}}</h2>
+            <p class="card-title">{{person.introduce}}</p>
+        </div>
+    </div>
+    <div class="col-md-4 d-flex justify-content-end" >
+        <img src="{{person.imageUrl}}" alt="{{person.userName}}" class="img-fluid p-1 fixed-image rounded" style="max-height: 200px;">
+    </div>
+</div>

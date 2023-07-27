@@ -1,13 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserComponent } from './user/user.component';
-import { UserPageComponent } from './user/user-page/user-page.component';
+import { PersonComponent } from './peson/person.component';
+import { PersonPageComponent } from './peson/person-page/person-page.component';
+import { ErrorComponent } from './error/error.component';
+
 
 const routes: Routes = [  
-  { path: '',                   redirectTo: '/users', pathMatch: 'full'},
-  { path: 'users',            component: UserComponent, children: [
+  { path: '',                 redirectTo: '/user', pathMatch: 'full'},
+  { path: 'user',             component: UserComponent},
+  { path: 'people',            component: PersonComponent, children: [
     { path: '',               component: UserComponent},
-    { path: ':id',      component: UserPageComponent}]}, 
+    { path: ':id',            component: PersonPageComponent}]}, 
+  { path: 'error',            component: ErrorComponent},
 ];
 
 @NgModule({
