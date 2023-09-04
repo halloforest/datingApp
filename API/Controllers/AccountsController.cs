@@ -31,9 +31,7 @@ namespace API.Controllers
 
             var user = new AppUser
             {
-                UserName = registerDto.UserName,
-                Introduce = "I am a new User",
-                ImageUrl = "https://www.ps-team.com/wp-content/uploads/bb-plugin/cache/Was-macht-eigentlich-ein...-landscape-44b090b0654fa6e2ece459e3e592c682-sopelcqbz1f7.jpg",
+                UserName = registerDto.UserName,                
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
                 PasswordSalt = hmac.Key
             };

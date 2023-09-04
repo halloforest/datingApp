@@ -6,6 +6,7 @@ namespace DatabaseTest.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Route("retrieve")]
     public class StudentController : ControllerBase
     {
         private readonly DataContext _context;
@@ -20,7 +21,6 @@ namespace DatabaseTest.Controllers
         {
             return _context.Students.ToList();
         }
-
 
         [HttpPost]
         public ActionResult<Student> AddStudent(Student student)

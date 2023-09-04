@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserComponent } from './user/user.component';
-import { PersonComponent } from './peson/person.component';
-import { PersonPageComponent } from './peson/person-page/person-page.component';
-import { ErrorComponent } from './error/error.component';
+import { UserComponent } from './modules/user/user.component';
+import { MemberComponent } from './modules/member/member.component';
+import { ErrorComponent } from './modules/error/error.component';
+import { MemberListComponent } from './modules/member/member-list/member-list.component';
+import { MemberDetailComponent } from './modules/member/member-detail/member-detail.component';
 
 
 const routes: Routes = [  
-  { path: '',                 redirectTo: '/user', pathMatch: 'full'},
-  { path: 'user',             component: UserComponent},
-  { path: 'people',            component: PersonComponent, children: [
-    { path: '',               component: UserComponent},
-    { path: ':id',            component: PersonPageComponent}]}, 
-  { path: 'error',            component: ErrorComponent},
+  { path: 'members',
+    children: [
+      { path: 'list',      component: MemberListComponent},
+      { path: ':username', component: MemberDetailComponent}]}, 
+  { path: 'user',         component: UserComponent},
+  { path: 'error',         component: ErrorComponent},
 ];
 
 @NgModule({
