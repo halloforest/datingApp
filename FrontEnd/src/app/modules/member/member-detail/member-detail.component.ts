@@ -20,7 +20,7 @@ import { MemberService } from 'src/app/services/member.service';
   ]
 })
 export class MemberDetailComponent {
-  member: Member | undefined;
+  member: Member | null = null;
   memberSubscription!: Subscription;
 
   images: GalleryItem[] = [];

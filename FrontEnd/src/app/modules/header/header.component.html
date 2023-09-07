@@ -21,11 +21,16 @@
         </li>
       </ul>
 
-      <ul *ngIf="user != null" class="navbar-nav ml-auto">
-        <li class="nav-item">
-          Welcome {{user.userName}}, <a class="clickable-link link-primary" [routerLink]="['/user']" style="cursor: pointer;" (click)="onClickLogout()">Logout</a>       
-        </li>
-      </ul>
+      <div *ngIf="user != null" class="dropdown" (click)="toggleDropdown()" [class.show]="isDropdownOpen">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button">
+          Hi, {{user.userName}}
+        </button>
+        <ul class="dropdown-menu" [class.show]="isDropdownOpen">
+          <li><span class="dropdown-item" [routerLink]="['/members/edit']" style="cursor: pointer;">Edit Profile</span></li>
+          <li><hr></li>
+          <li><span class="dropdown-item" (click)="onClickLogout()" style="cursor: pointer;">Logout</span></li>
+        </ul>
+      </div>
       
     </div>
 </nav>

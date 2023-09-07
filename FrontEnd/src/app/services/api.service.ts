@@ -58,7 +58,7 @@ export class ApiService {
 
   getMembers() { 
     this.http
-      .get<Member[]>(environment.baseUrl + `/users`, {params: this.getHttpParams()})
+      .get<Member[]>(environment.baseUrl + `/users`)  // Token was handled in the inteceptor
       .subscribe(
         (members: Member[]) => {
           this.memberService.setMembers(members);
@@ -73,8 +73,31 @@ export class ApiService {
       );
   }
 
-  getMemberByUserName(userName: string) { 
+  updateMember(member: Member | null) {
     this.http
+    .put<Member[]>(environment.baseUrl + `/users`, member, {params: this.getHttpParams()})
+    .subscribe(
+      () => {
+        this.apiMessage.next("Recipes were uploaded to the server successfully!");
+      },
+      error => {
+        this.apiMessage.next("Save recipes error: " + error.message);
+      }
+    );   
+  }
+
+  getMemberByUserName(userName: string | undefined) {
+    // Member already exist in the local caching, do nothing
+    if(this.memberService.member.getValue()?.userName === userName) return;
+
+    let localMember = this.memberService.members.getValue()?.find(x => x.userName === userName);
+
+    if (localMember) {
+      // Member can be extracted from local members caching
+      this.memberService.member.next(localMember);
+    } else {
+      // Get member from remote
+      this.http
       .get<Member>(environment.baseUrl + `/users/${userName}`, {params: this.getHttpParams()})
       .subscribe(
         (member: Member) => {
@@ -88,6 +111,7 @@ export class ApiService {
           this.apiMessage.next("Get member successful!" );
         },
       );
+    }  
   }
 
   private getHttpParams(): HttpParams {

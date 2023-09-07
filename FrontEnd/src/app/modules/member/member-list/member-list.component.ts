@@ -10,7 +10,7 @@ import { MemberService } from 'src/app/services/member.service';
   styleUrls: ['./member-list.component.css']
 })
 export class MemberListComponent {
-  members: Member[] | undefined = undefined;
+  members: Member[] | null = null;
   membersSubscription!: Subscription;
 
   apiMessage: string | undefined = undefined;

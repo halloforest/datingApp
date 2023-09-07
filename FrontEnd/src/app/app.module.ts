@@ -14,7 +14,10 @@ import { ApiErrorInterceptor } from './interceptors/api-error.interceptor';
 import { MemberComponent } from './modules/member/member.component';
 import { MemberListComponent } from './modules/member/member-list/member-list.component';
 import { MemberCardComponent } from './modules/member/member-card/member-card.component';
-import { TabsModule } from 'ngx-bootstrap/tabs';
+import { MemberEditComponent } from './modules/member/member-edit/member-edit.component';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { SharedModule } from './shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     HeaderComponent,
     ErrorComponent,
     MemberListComponent,
-    MemberCardComponent
+    MemberCardComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,
@@ -32,11 +36,13 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    TabsModule.forRoot()
+    BrowserAnimationsModule,
+    SharedModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ApiTokenInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -8,5 +8,4 @@ import { Member } from 'src/app/models/member.model';
 })
 export class MemberCardComponent {
   @Input() member: Member | null = null;
-
 }

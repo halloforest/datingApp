@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Member } from '../models/member.model';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MemberService {
   // One client, one user
-  members = new BehaviorSubject<Member[] | undefined>(undefined);
-  member = new BehaviorSubject<Member | undefined>(undefined);
+  members = new BehaviorSubject<Member[] | null>(null);
+  member = new BehaviorSubject<Member | null>(null);
 
   constructor() { }
 
